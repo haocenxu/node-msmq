@@ -64,6 +64,24 @@ namespace MSMQLib
             await Task.Run(() => queue.Send(msg));
             return true;
         }
+        
+        /// <summary>
+        /// Sends a message to a TransactionalQueue.
+        /// </summary>
+        /// <param name="input">The queue's path and message.</param>
+        public async Task<object> SendTransactionalMessage(dynamic input)
+        {
+            string path = (string)input.path;
+            string message = (string)input.message;
+
+            byte[] bytes = Encoding.UTF8.GetBytes(message);
+            MessageQueue queue = new MessageQueue(path);
+            Message msg = new Message();
+            msg.BodyStream = new MemoryStream(bytes);
+
+            await Task.Run(() => queue.Send(msg, MessageQueueTransactionType.Single));
+            return true;
+        }
 
         /// <summary>
         /// Receives messages from a queue.
