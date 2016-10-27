@@ -14,6 +14,7 @@ export var queueProxy = {
 	exists: getMethod('ExistsQueue'),
 	create: getMethod('CreateQueue'),
 	send: getMethod('SendMessage'),
+	sendTransactional: getMethod('SendTransactionalMessage'),
 	receive: getMethod('ReceiveMessages'),
 	list: getMethod('GetAllMessages'),
 	clear: getMethod('PurgeQueue')
