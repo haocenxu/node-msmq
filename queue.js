@@ -50,6 +50,15 @@ export default class Queue extends EventEmitter {
 			message: formattedMessage
 		}, cb);
 	}
+	
+	sendTransactional(message, cb) {
+		let formattedMessage = message.toString();
+
+		return queueProxy.sendTransactional({
+			path: this.path,
+			message: formattedMessage
+		}, cb);
+	}
 
 	getAllMessages() {
 		return queueProxy.list(this.path, true);
